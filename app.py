@@ -77,10 +77,13 @@ def index():
             logging.info("log my final result {}".format(reviews))
 
             # inserting into mongo db
-            client = pymongo.MongoClient("mongodb+srv://root:<password>#@atlascluster.zd3lall.mongodb.net/?retryWrites=true&w=majority")
-            db =client['scrapper_eng_pwskills']
-            coll_pw_eng = db['scraper_pwskills_eng']
-            coll_pw_eng.insert_many(reviews)
+            try:
+                client = pymongo.MongoClient("mongodb+srv://root:Harshin98##@atlascluster.zd3lall.mongodb.net/?retryWrites=true&w=majority")
+                db =client['scrapper_eng_pwskills']
+                coll_pw_eng = db['scraper_pwskills_eng']
+                coll_pw_eng.insert_many(reviews)
+            except Exception as e:
+                logging.error(f"connection issue : {e}")
 
             return render_template('result.html', reviews=reviews[0:(len(reviews)-1)])
         except Exception as e:
